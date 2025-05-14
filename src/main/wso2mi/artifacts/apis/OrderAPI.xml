@@ -6,31 +6,91 @@
             <log category="INFO" logMessageID="false" logFullPayload="true">
                 <message>Received order request</message>
             </log>
-            <!-- Process order logic would go here -->
-            <!-- For example, validating the order, storing it, etc. -->
-            <!-- Create a response -->
-            <payloadFactory media-type="json">
-                <format>
-                    {
-                    "status": "success",
-                    "message": "Order processed successfully",
-                    "orderId": "${payload.orderId}"
-                    }
-                </format>
-            </payloadFactory>
+            
+            <!-- Extract book order details into variables -->
+            <variable name="orderId" expression="${payload.orderId}" type="STRING"/>
+            <variable name="customerId" expression="${payload.customerId}" type="STRING"/>
+            <variable name="title" expression="${payload.title}" type="STRING"/>
+            <variable name="author" expression="${payload.author}" type="STRING"/>
+            <variable name="price" expression="${payload.price}" type="DOUBLE"/>
+
+            <!-- Route based on itemType -->
+            <filter xpath="${payload.itemType == 'book'}">
+                <then>
+                    <log category="INFO">
+                        <message>Processing book order</message>
+                    </log>
+                                        
+                    <!-- Store in MySQL database -->
+                    <dbreport>
+                        <connection>
+                            <pool>
+                                <driver>com.mysql.cj.jdbc.Driver</driver>
+                                <url>jdbc:mysql://localhost:3306/ordersdb</url>
+                                <user>root</user>
+                                <password>rootpass</password>
+                            </pool>
+                        </connection>
+                        <statement>
+                            <sql>INSERT INTO books (orderId, customerId, title, author, price) VALUES (?, ?, ?, ?, ?)</sql>
+                            <parameter expression="${vars.orderId}" type="VARCHAR"/>
+                            <parameter expression="${vars.customerId}" type="VARCHAR"/>
+                            <parameter expression="${vars.title}" type="VARCHAR"/>
+                            <parameter expression="${vars.author}" type="VARCHAR"/>
+                            <parameter expression="${vars.price}" type="DECIMAL"/>
+                        </statement>
+                    </dbreport>
+                    
+                    <!-- Generate book order response -->
+                    <payloadFactory media-type="json">
+                        <format>
+                            {
+                            "status": "success",
+                            "message": "Book order processed and stored in database",
+                            "orderId": "${vars.orderId}",
+                            "bookDetails": {
+                                "title": "${vars.title}",
+                                "author": "${vars.author}",
+                                "price": ${vars.price}
+                            }
+                            }
+                        </format>
+                    </payloadFactory>
+                </then>
+                <else>
+                    <log category="INFO">
+                        <message>Received non-book order: ${payload.itemType}</message>
+                    </log>
+                    
+                    <!-- Create response for non-book orders -->
+                    <payloadFactory media-type="json">
+                        <format>
+                            {
+                            "status": "success",
+                            "message": "Order received but not processed as book",
+                            "orderId": "${payload.orderId}",
+                            "itemType": "${payload.itemType}"
+                            }
+                        </format>
+                    </payloadFactory>
+                </else>
+            </filter>
+
             <!-- Log the outgoing response -->
             <log category="INFO">
-                <message>Order processed successfully</message>
+                <message>Order processed successfully. </message>
             </log>
+            
             <!-- Send the response back to the client -->
             <respond/>
         </inSequence>
+        
         <faultSequence>
-            <!-- Error handling -->
+            <!-- Error handling with correct Synapse Expression syntax -->
             <log category="ERROR" logMessageID="false" logFullPayload="true">
-                <message>Error processing order: $ctx:ERROR_MESSAGE</message>
+                <message>Error processing order:${properties.synapse.ERROR_MESSAGE}</message>
             </log>
-            
+
             <payloadFactory media-type="json">
                 <format>
                     {
