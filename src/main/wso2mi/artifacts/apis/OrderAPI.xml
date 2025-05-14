@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/orders" name="OrderAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" url-mapping="/">
+        <inSequence>
+            <!-- Log the incoming request -->
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message>Received order request</message>
+            </log>
+            <!-- Process order logic would go here -->
+            <!-- For example, validating the order, storing it, etc. -->
+            <!-- Create a response -->
+            <payloadFactory media-type="json">
+                <format>
+                    {
+                    "status": "success",
+                    "message": "Order processed successfully",
+                    "orderId": "${payload.orderId}"
+                    }
+                </format>
+            </payloadFactory>
+            <!-- Log the outgoing response -->
+            <log category="INFO">
+                <message>Order processed successfully</message>
+            </log>
+            <!-- Send the response back to the client -->
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <!-- Error handling -->
+            <log category="ERROR" logMessageID="false" logFullPayload="true">
+                <message>Error processing order: $ctx:ERROR_MESSAGE</message>
+            </log>
+            
+            <payloadFactory media-type="json">
+                <format>
+                    {
+                    "status": "error",
+                    "message": "An error occurred while processing your order ${payload.orderId}",
+                    }
+                </format>
+            </payloadFactory>
+            
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>
