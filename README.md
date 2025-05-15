@@ -34,7 +34,25 @@ This repository contains sample WSO2 Micro Integrator projects and artifacts. It
 * [DBeaver Community Edition Version 25.0.4](https://dbeaver.io/download/)
 * [Mysql Connector 8.4.0](https://downloads.mysql.com/archives/c-j/)
 
-## 📋 Database Script
+## 🧪AI Prompts
+### 1) API Creation
+"Create a REST API named 'OrderAPI' with the context path '/orders'. This API should accept POST requests to the resource path '/'. The request payload will be in JSON format with the following structure:
+```json
+{
+  "orderId": "ORD-123",
+  "customerId": "CUST-456",
+  "itemType": "book",
+  "title": "The Hitchhiker's Guide to the Galaxy",
+  "author": "Douglas Adams",
+  "price": 10.99
+}
+```
+The API should handle this payload to receive order information. I need the basic structure of the API to be generated, including the resource definition and payload handling. I will add the specific order processing logic later. Please generate the Synapse configuration for this API."
+
+### 2) Routing Sequence + DB Insertion
+“I'd like to route orders based on 'itemtype'. If the itemType is 'book’, we will process it further by extracting relevant details and storing them in a MySQL database.”
+Please also consider my database structure for reference."
+
 ```sql
 -- Create a database to store order information
 CREATE DATABASE IF NOT EXISTS ordersdb;
@@ -52,4 +70,8 @@ CREATE TABLE IF NOT EXISTS books (
     PRIMARY KEY (orderId)
 );
 ```
+### 3) Log Mediator
+“Could you add a log message after the book is inserted into the database, confirming that it was successfully added?”
 
+## ❓Support
+For questions, issues, or feature requests, please use the GitHub issues system or refer to the [WSO2 documentation](https://mi.docs.wso2.com/en/latest/) for additional guidance.
