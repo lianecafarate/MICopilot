@@ -10,14 +10,14 @@ This repository contains sample WSO2 Micro Integrator projects and artifacts. It
 * Error handling and fault sequence implementation.
 * Logging strategies for debugging and monitoring.
 
-## Building the Integration Flow
+## ✨ Building the Integration Flow
 1. **Establish an Order-Receiving API**: Create a RESTful API endpoint (named 'OrderAPI' with a context path like /orders) to serve as the primary entry point for receiving incoming customer order requests.
 2. **Define the Order Submission Contract**: Design the API to accept POST requests. Specify a clear JSON payload structure that captures all necessary order details (e.g., orderId, customerId, itemType, item-specific attributes, price).
 3. **Implement Conditional Order Processing Logic**: Introduce routing logic within the API flow that inspects the *itemType* from the incoming order. This allows for differentiated handling, such as directing 'book' orders to a specific processing path while potentially routing other types elsewhere.
 4. **Persist 'Book' Order Data to Database**: For orders identified as 'book' type, integrate the API with a MySQL database. This involves extracting relevant book details from the payload (like *orderId*, *title*, *author*, *price*) and inserting this information into a pre-defined 'books' table. This step presumes the database and table schema are already set up and accessible.
 5. **Formulate and Return Client Response**: After the order processing (whether it's a database insertion for a book or another action for different item types), construct and send a meaningful HTTP response back to the original caller, indicating the success or failure of the order submission.
 
-## Mediators
+## 🚀 Mediators
 * [Log Mediator](https://mi.docs.wso2.com/en/latest/reference/mediators/log-mediator/)
 * [Variable Mediator](https://mi.docs.wso2.com/en/latest/reference/mediators/variable-mediator/)
 * [If Else Mediator](https://mi.docs.wso2.com/en/latest/reference/mediators/filter-mediator/)
@@ -25,7 +25,7 @@ This repository contains sample WSO2 Micro Integrator projects and artifacts. It
 * [PayloadFactory Mediator](https://mi.docs.wso2.com/en/latest/reference/mediators/payloadfactory-mediator/)
 * [Respond Mediator](https://mi.docs.wso2.com/en/latest/reference/mediators/respond-mediator/)
 
-## Technology Stack
+## 🔧 Technology Stack
 * [WSO2 Micro Integrator 4.4](https://mi.docs.wso2.com/en/latest/install-and-setup/install/installing-mi/)
 * [VS Code Version 1.100.1](https://code.visualstudio.com/)
 * [WSO2 Micro Integrator VS Code Extension Version 2.2.0](https://mi.docs.wso2.com/en/latest/develop/mi-for-vscode/install-wso2-mi-for-vscode/)
@@ -34,7 +34,7 @@ This repository contains sample WSO2 Micro Integrator projects and artifacts. It
 * [DBeaver Community Edition Version 25.0.4](https://dbeaver.io/download/)
 * [Mysql Connector 8.4.0](https://downloads.mysql.com/archives/c-j/)
 
-## Database Script
+## 📋 Database Script
 ```sql
 -- Create a database to store order information
 CREATE DATABASE IF NOT EXISTS ordersdb;
