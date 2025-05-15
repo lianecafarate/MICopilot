@@ -34,7 +34,15 @@ This repository contains sample WSO2 Micro Integrator projects and artifacts. It
 * [DBeaver Community Edition Version 25.0.4](https://dbeaver.io/download/)
 * [Mysql Connector 8.4.0](https://downloads.mysql.com/archives/c-j/)
 
-## 🧪AI Prompts
+## 🧪AI Prompts Suggestions
+### Disclaimer: AI-Assisted Development (MI Copilot)
+When using AI-powered coding assistants, please be aware of the following:
+* **AI as a Tool:** Consider AI assistants as helpful "pair programmers" who can offer suggestions and accelerate development. However, they are not infallible and should not replace your critical judgment.
+* **Potential for Errors:** AI-generated code or advice may contain inaccuracies, inefficiencies, or be incomplete. Always thoroughly review, test, and understand any suggestions before implementation.
+* **Output Variability:** AI models can produce different results for similar prompts across different sessions or as the underlying models evolve. Do not expect identical outputs consistently.
+* **User Responsibility:** You are ultimately responsible for the quality, security, and correctness of any code or solutions implemented, regardless of AI assistance.
+* **Iterative Approach:** Treat AI suggestions as a starting point. Be prepared to iterate, refine, and adapt the output to meet your specific project requirements and best practices.
+
 ### 1) API Creation
 "Create a REST API named 'OrderAPI' with the context path '/orders'. This API should accept POST requests to the resource path '/'. The request payload will be in JSON format with the following structure:
 ```json
