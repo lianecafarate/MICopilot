@@ -2,6 +2,9 @@
 MICopilot is an integration project developed with WSO2 Micro Integrator, leveraging the Micro Integrator Copilot VS Code extension to streamline the development of integration solutions. 
 This project demonstrates how to use AI-assisted development tools within the WSO2 integration ecosystem.
 
+***⚠️ For Testing & Demo Purposes Only***
+> This configuration is intended strictly for local testing, experimentation, and demonstration. It is NOT secured, optimized, or configured for production environments.
+
 ## 🔍 Project Overview
 This repository contains sample WSO2 Micro Integrator projects and artifacts. It can be used as a reference for understanding how to implement specific integration scenarios, particularly focusing on:
 
